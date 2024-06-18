@@ -26,3 +26,5 @@ script2_ExtractHap.py
 script3_ExtractHap.py
 
 modify_header_fasta.py
+
+filter_transitions_vcf.py
