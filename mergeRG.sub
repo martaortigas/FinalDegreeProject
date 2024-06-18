@@ -1,0 +1,25 @@
+#! /bin/bash -x
+#SBATCH --job-name="mergeRG"
+#SBATCH --cpus-per-task=3
+#SBATCH --mem=500M
+#SBATCH --output=/home/mortigas/outerr/mergeRG_%j.out
+#SBATCH --error=/home/mortigas/outerr/mergeRG_%j.err
+#SBATCH --partition=general
+#
+#######MERGE READ GROPUS INTO A SINGLE BAM#######
+#This script merges read groups belonging to the same sample into a single BAM.
+
+module load samtools/1.9
+OUTPATH=/scratch/125-emmer/exome_capture
+
+cd $OUTPATH
+# For each sample we merge the exome_sorted & the reamp_exome_sorted files to generate a single BAM file per sample
+samtools merge IP01_merged_sorted_dupMarked_RG.bam IP01_exome_sorted_dupMarked_RG.bam IP01-reamp_exome_sorted_dupMarked_RG.bam
+samtools merge IP02_merged_sorted_dupMarked_RG.bam IP02_exome_sorted_dupMarked_RG.bam IP02-reamp_exome_sorted_dupMarked_RG.bam
+samtools merge IP03_merged_sorted_dupMarked_RG.bam IP03_exome_sorted_dupMarked_RG.bam IP03-reamp_exome_sorted_dupMarked_RG.bam
+samtools merge IP04_merged_sorted_dupMarked_RG.bam IP04_exome_sorted_dupMarked_RG.bam IP04-reamp_exome_sorted_dupMarked_RG.bam
+samtools merge IP08_merged_sorted_dupMarked_RG.bam IP08_exome_sorted_dupMarked_RG.bam IP08-reamp_exome_sorted_dupMarked_RG.bam
+samtools merge IP10_merged_sorted_dupMarked_RG.bam IP10_exome_sorted_dupMarked_RG.bam IP10-reamp_exome_sorted_dupMarked_RG.bam
+samtools merge NW10_merged_sorted_dupMarked_RG.bam NW10_exome_sorted_dupMarked_RG.bam NW10-reamp_exome_sorted_dupMarked_RG.bam
+
+module unload samtools/1.9
