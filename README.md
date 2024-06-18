@@ -11,9 +11,6 @@ mergeRG.sub
 
 modify_vcf.sub
 
-BQSR.sub
-
 modchr.sub
-
 
 sam_stats.sub
