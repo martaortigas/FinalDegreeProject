@@ -15,6 +15,5 @@ BQSR.sub
 
 modchr.sub
 
-split_chr_gvcfs.sub
 
 sam_stats.sub
