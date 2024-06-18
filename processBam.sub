@@ -1,0 +1,30 @@
+#!/bin/bash -x
+#SBATCH --job-name="processBam"
+#SBATCH --cpus-per-task=5
+#SBATCH --mem=1G
+#SBATCH --partition=general
+#SBATCH --output=/home/mortigas/outerr/processBam_%j.out
+#SBATCH --error=/home/mortigas/outerr/processBam_%j.err
+
+
+#Run MapDamage on a single end bam file
+
+OUTPATH=$OUTPATH
+indID=$INDID
+bamFile=$BAMFILE #Output of AdapterRemoval OR rawFastq from modern data
+rglb=$RGLB
+rgsm=$RGSM
+
+module load samtools/1.9
+#module load sambamba/0.8.0
+#sambamba markdup -t 4  $OUTPATH/${indID}_sorted.bam $OUTPATH/${indID}_sorted_dupMarked.bam
+#samtools stats -d $OUTPATH/${indID}_sorted_dupMarked.bam
+#module unload sambamba/0.8.0
+module load picard/2.22.3
+# We will have to run these samples per pools so that the RGLB field is different
+java -Xmx1g -jar $PICARDPATH/picard.jar AddOrReplaceReadGroups I=$OUTPATH/${indID}_sorted_dupMarked.bam O=$OUTPATH/${indID}_sorted_dupMarked_RG.bam RGID=$indID RGLB=$rglb RGPL=Illumina RGPU=unit1 RGSM=$rgsm
+samtools index -c $OUTPATH/${indID}_sorted_dupMarked_RG.bam
+java -Xmx1g -jar $PICARDPATH/picard.jar ValidateSamFile I=$OUTPATH/${indID}_sorted_dupMarked_RG.bam MODE=SUMMARY
+module unload picard/2.22.3
+module unload samtools/1.9
+
