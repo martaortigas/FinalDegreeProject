@@ -1,3 +1,5 @@
+# R Script to build the histogram displaying the frequency of values of dxy_WNL_DSE – dxy_WSL_DSE from Table S1.
+
 library(readxl)
 
 rm(list=ls())
@@ -18,7 +20,7 @@ abline(v=mean_value, col="red", lwd=2, lty=2)
 abline(v=max_value, col="green", lwd=2, lty=2) 
 abline(v=min_value, col="blue", lwd=2, lty=2)  
 
-# Añadir una leyenda
+# Add a legend
 legend_x <- mean(x$breaks) * 0.1  # You can adjust this as needed
 legend_y <- max(x$counts) * 1  # You can adjust this as needed
 
