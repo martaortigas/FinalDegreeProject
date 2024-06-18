@@ -1,0 +1,20 @@
+#! /bin/bash -x 
+#SBATCH --job-name="mod"
+#SBATCH --partition=all
+#SBATCH --cpus-per-task=3
+#SBATCH --mem=16G
+#SBATCH --output=/home/mortigas/outerr/modchr_%j.out
+#SBATCH --error=/home/mortigas/outerr/modchr_%j.err
+
+####### modchr #######
+#This script modifies specific characteristics of a given fasta file. In this case, it modifies the chromosome IDs of the file and then it compresses the resulting fasta file and indexes it using "samtools faidx".
+
+module load samtools/1.9
+
+DIR=/home/mortigas
+cd $DIR
+FASTA=Triticum_turgidum_Svevo.v1_genomic.artificial_chrom_split
+cat ${FASTA}.fa | sed 's/LT934111.1/1A/g;s/LT934112.1/1B/g;s/LT934113.1/2A/g;s/LT934114.1/2B/g;s/LT934115.1/3A/g;s/LT934116.1/3B/g;s/LT934117.1/4A/g;s/LT934118.1/4B/g;s/LT934119.1/5A/g;s/LT934120.1/5B/g;s/LT934121.1/6A/g;s/LT934122.1/6B/g;s/LT934123.1/7A/g;s/LT934124.1/7B/g;' | bgzip > ${FASTA}.chrs.fa.gz
+samtools faidx ${FASTA}.chrs.fa.gz
+
+module unload samtools/1.9
