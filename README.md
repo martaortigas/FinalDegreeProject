@@ -1,5 +1,5 @@
 # FinalDegreeProject
-Github repository with the scripts utilized and mentioned in the final degree project.
+Github repository with the scripts utilized during the development of the internship and the final degree project.
 
 **List of contents:**
 
