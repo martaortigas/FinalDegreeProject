@@ -21,4 +21,8 @@ ConvertToVCF.py
 
 script1_ExtractHap.py
 
-script2_ExtractHap          fefsefsf
+script2_ExtractHap.py
+
+script3_ExtractHap.py
+
+modify_header_fasta.py
