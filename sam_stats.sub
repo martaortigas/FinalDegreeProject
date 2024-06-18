@@ -1,0 +1,25 @@
+#!/bin/bash -x
+#
+#SBATCH --job-name="sam_stats"
+#SBATCH --partition=fatnodes
+#SBATCH --cpus-per-task=3
+#SBATCH --mem=1G
+#SBATCH --output=/home/mortigas/outerr/SamStats_%j.out
+#SBATCH --error=/home/mortigas/outerr/SamStats_%j.err
+
+####### SAM STATS #######
+# This script takes BAM files and calculates their samtools statistics.
+
+DIR=/scratch/125-emmer/exome_capture
+OUTPUT=/home/mortigas
+cd $DIR
+
+module load samtools/1.9
+
+samtools stats IP08_exome_sorted.bam > $OUTPUT/IP08_stats.txt 
+samtools stats IP08-reamp_exome_sorted.bam > $OUTPUT/IP08-reamp_stats.txt
+samtools stats IP10_exome_sorted.bam >  $OUTPUT/IP10_stats.txt
+samtools stats IP10-reamp_exome_sorted.bam >  $OUTPUT/IP10-reamp_stats.txt
+samtools stats NW21_exome_sorted.bam >  $OUTPUT/NW21_stats.txt
+
+module unload samtools/1.9
